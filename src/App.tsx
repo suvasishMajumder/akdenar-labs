@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+
 // Simple single-page placeholder built with Tailwind CSS.
 // Drop this into src/App.tsx (replace existing file).
 
@@ -84,7 +85,7 @@ const App: React.FC = () => {
         </section>
 
         {/* Placeholder area / CTA */}
-        <section id="pricing" className="mt-16 p-6 rounded-lg bg-gradient-to-r from-white/60 to-gray-50 dark:from-gray-800/60 dark:to-gray-900/60">
+        <section id="pricing" className="mt-16 p-6 rounded-lg bg-linear-to-r from-white/60 to-gray-50 dark:from-gray-800/60 dark:to-gray-900/60">
           <h3 className="text-lg font-medium">Placeholder section</h3>
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">Use this area to describe your product, pricing, or anything else.</p>
 
