@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Footer from "./components/Footer";
 
 
 // Simple single-page placeholder built with Tailwind CSS.
@@ -115,6 +116,7 @@ const App: React.FC = () => {
       <footer className="text-center py-6 text-sm text-gray-500">
         © {new Date().getFullYear()} Deshmitra. Built with ❤️.
       </footer>
+      <Footer />
     </div>
   );
 };
