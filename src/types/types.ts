@@ -1,8 +1,18 @@
+export type sectionObj = {
+  title: string;
+  description: string;
+  image: string;
+};
 
+export type serviceElemType = {
+  route: string;
+  title: string;
+  heading: string;
 
-type ServiceContentType = {
+  sections: sectionObj[];
+};
 
-    heading:string,
-    content:string
-
-}
+export type ServiceContentType = {
+  heading: string;
+  content: string;
+};
