@@ -200,7 +200,7 @@ export default function UniversalTable({ formType }: { formType: string }) {
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className="text-center p-8 animate-pulse"
+                  className="text-center p-8 animate-pulse border-gray-300"
                 >
                   Loading data...
                 </TableCell>
