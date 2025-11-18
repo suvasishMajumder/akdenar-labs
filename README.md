@@ -19,8 +19,7 @@ JWT_SECRET=ajay123
 CLOUDINARY_CLOUD_NAME=dytuod
 CLOUDINARY_API_KEY=825889711783
 CLOUDINARY_API_SECRET=iAveyyP4rkm2kAZHWBYmHLwk
-
-
+```
 
 ## Future enhancement
 1. forgot password for admin
