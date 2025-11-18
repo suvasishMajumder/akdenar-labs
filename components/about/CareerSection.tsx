@@ -1,4 +1,7 @@
+"use client";
+
 import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 
 const jobs = [
   {
@@ -26,29 +29,68 @@ const jobs = [
 
 export default function CareersSection() {
   return (
-    <section className=" bg-bg-primary py-10 px-6 md:px-10 lg:px-24 text-center">
-
+    <motion.section
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.7, ease: "easeOut" }}
+      className="bg-bg-primary py-10 px-6 md:px-10 lg:px-24 text-center"
+    >
       {/* Small Badge */}
-      <span className="px-5 py-1 rounded-full bg-[#EDEAFF] text-[#7F56D9] text-sm font-medium">
+      <motion.span
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+        className="px-5 py-1 rounded-full bg-[#EDEAFF] text-[#7F56D9] text-sm font-medium"
+      >
         Careers
-      </span>
+      </motion.span>
 
       {/* Heading */}
-      <h2 className="text-3xl md:text-5xl mt-4 font-semibold text-gray-900">
+      <motion.h2
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="text-3xl md:text-5xl mt-4 font-semibold text-gray-900"
+      >
         New job opportunities
-      </h2>
+      </motion.h2>
 
       {/* Subheading */}
-      <p className="text-neutral-600 mt-3 max-w-2xl mx-auto">
+      <motion.p
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.3 }}
+        className="text-neutral-600 mt-3 max-w-2xl mx-auto"
+      >
         Browse through vacancies, internships and job postings at FutureSphere
-      </p>
+      </motion.p>
 
       {/* Job List */}
-      <div className="mt-12 space-y-5 max-w-5xl mx-auto">
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={{
+          hidden: { opacity: 1 },
+          visible: {
+            transition: { staggerChildren: 0.15 },
+          },
+        }}
+        className="mt-12 space-y-5 max-w-5xl mx-auto"
+      >
         {jobs.map((job, i) => (
-          <div
+          <motion.div
             key={i}
-            className="bg-white rounded-xl shadow-sm border border-gray-200 px-6 py-6 flex justify-between items-center"
+            variants={{
+              hidden: { opacity: 0, y: 30 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.55 } },
+            }}
+            whileHover={{ y: -6, boxShadow: "0 10px 24px rgba(127,86,217,0.15)" }}
+            transition={{ type: "spring", stiffness: 180, damping: 14 }}
+            className="bg-white rounded-xl shadow-sm border border-gray-200 px-6 py-6 
+                       flex justify-between items-center cursor-pointer 
+                       hover:border-[#D9CEFF] transition-all duration-300"
           >
             {/* Left Side */}
             <div className="text-left">
@@ -65,12 +107,18 @@ export default function CareersSection() {
             </div>
 
             {/* Right Side Arrow */}
-            <button className="w-10 h-10 flex items-center justify-center rounded-full border border-[#E0D9FF] text-[#7F56D9] hover:bg-[#F4F0FF] transition">
+            <motion.button
+              whileHover={{ x: 4 }}
+              transition={{ duration: 0.2 }}
+              className="w-10 h-10 flex items-center justify-center rounded-full 
+                         border border-[#E0D9FF] text-[#7F56D9] 
+                         hover:bg-[#F4F0FF] transition"
+            >
               <ArrowRight size={18} />
-            </button>
-          </div>
+            </motion.button>
+          </motion.div>
         ))}
-      </div>
-    </section>
+      </motion.div>
+    </motion.section>
   );
 }

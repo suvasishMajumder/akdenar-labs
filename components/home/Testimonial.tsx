@@ -53,7 +53,13 @@ export default function TestimonialsSection() {
         setIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
 
     return (
-        <section className="w-full py-20 px-6 md:px-10 lg:px-20">
+        <motion.section
+            className="w-full py-20 px-6 md:px-10 lg:px-20"
+            initial={{ opacity: 0, y: 60 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            viewport={{ once: true, amount: 0.2 }}
+        >
 
             {/* Pill */}
             <div className="flex justify-center mb-3">
@@ -125,6 +131,6 @@ export default function TestimonialsSection() {
                 </AnimatePresence>
 
             </div>
-        </section>
+        </motion.section>
     );
 }

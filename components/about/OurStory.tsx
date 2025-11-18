@@ -39,7 +39,7 @@ export default function OurStorySection() {
                     {/* RIGHT IMAGE */}
                     <div className="relative flex-1 w-full min-h-[240px] h-[260px] md:h-[320px] rounded-2xl overflow-hidden">
                         <Image
-                            src="/about/ourstory1.svg"
+                            src="/about/ourstory1.png"
                             alt="Our Story"
                             fill
                             className="object-cover"

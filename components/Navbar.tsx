@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 // shadcn imports — adjust paths if your project uses different wrappers
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -21,10 +21,10 @@ export default function Navbar() {
   const pathname = usePathname();
   const [megaOpen, setMegaOpen] = useState(false);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const router = useRouter();
 
   const isActive = (href: string) =>
     pathname === href || pathname?.startsWith(href + "/");
-
 
   const [showNavbar, setShowNavbar] = useState(false);
 
@@ -43,7 +43,7 @@ export default function Navbar() {
 
   return (
     <header
-      className={`w-full fixed top-0 left-0 z-50 transition-all duration-300 bg-white/95 backdrop-blur-sm border-b border-slate-100`}
+      className={` ${pathname.split("/").includes("dashboard") && "hidden"} w-full fixed top-0 left-0 z-50 transition-all duration-300 bg-white/95 backdrop-blur-sm border-b border-slate-100`}
     >
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex w-full items-center justify-between h-16">
@@ -86,85 +86,124 @@ export default function Navbar() {
                   </button>
                 </SheetTrigger>
 
-                <SheetContent side="left" className="w-[320px] h-full overflow-y-auto p-6 bg-white">
-                  <div className="flex items-center justify-between mb-4">
-                    <Link href="/" className="flex items-center">
+                <SheetContent
+                  side="left"
+                  className="w-[320px] h-full overflow-y-auto bg-white p-6 shadow-xl 
+             animate-[slideIn_0.35s_ease-out]"
+                >
+                  {/* Header */}
+                  <div className="flex items-center justify-between mb-4 animate-fadeIn">
+                    <Link href="/" onClick={() => setIsSheetOpen(false)}>
                       <Image src="/logo.svg" alt="Logo" width={140} height={36} />
                     </Link>
-                    {/* <button
-                      onClick={() => {
-                        // sheet provides its own close, but keep for safety
-                        const el = document.activeElement as HTMLElement;
-                        el?.blur();
-                      }}
-                      className="p-2"
+
+                    <button
+                      onClick={() => setIsSheetOpen(false)}
                       aria-label="Close"
+                      className="p-2 rounded-md hover:bg-gray-100 transition"
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                      </svg>
-                    </button> */}
+                      ✕
+                    </button>
                   </div>
 
-                  <nav className="space-y-4" onClick={() => setIsSheetOpen(false)}>
-                    <div>
-                      <Accordion type="single" collapsible>
-                        <AccordionItem value="what-we-do">
-                          <AccordionTrigger className="text-gray-700 hover:text-gray-900">What We Do</AccordionTrigger>
-                          <AccordionContent>
-                            <div className="space-y-2">
-                              <details>
-                                <summary className="font-medium text-gray-700">Capabilities</summary>
-                                <ul className="mt-2 ml-4 list-disc space-y-1 text-sm">
-                                  {navigationData.capabilities.map((c) => (
-                                    <li key={c}>
-                                      <Link href={`/services/${slugify(c)}`} className="block text-gray-700 hover:text-gray-900">
-                                        {c}
-                                      </Link>
-                                    </li>
-                                  ))}
-                                </ul>
-                              </details>
+                  {/* Menu */}
+                  <nav className="space-y-4">
 
-                              <details className="mt-2">
-                                <summary className="font-medium text-gray-700">Industries</summary>
-                                <ul className="mt-2 ml-4 list-disc space-y-1 text-sm">
-                                  {navigationData.industries.map((i) => (
-                                    <li key={i}>
-                                      <Link href={`/services/${slugify(i)}`} className="block text-gray-700 hover:text-gray-900">
-                                        {i}
-                                      </Link>
-                                    </li>
-                                  ))}
-                                </ul>
-                              </details>
-                            </div>
-                          </AccordionContent>
-                        </AccordionItem>
-                      </Accordion>
-                    </div>
+                    {/* WHAT WE DO */}
+                    <Accordion type="single" collapsible>
+                      <AccordionItem value="what-we-do">
+                        <AccordionTrigger className="text-gray-700 hover:text-gray-900">
+                          What We Do
+                        </AccordionTrigger>
 
-                    <Link href="/about" className={isActive("/about") ? "block font-semibold text-gray-900" : "block text-gray-700 hover:text-gray-900"} aria-current={isActive("/about") ? "page" : undefined}>
+                        <AccordionContent className="animate-slideDown">
+                          <div className="space-y-3">
+
+                            {/* Capabilities */}
+                            <details>
+                              <summary className="font-medium text-gray-700 cursor-pointer">
+                                Capabilities
+                              </summary>
+                              <ul className="mt-2 ml-4 list-disc text-sm space-y-1 animate-fadeIn">
+                                {navigationData.capabilities.map((c, i) => (
+                                  <li key={i}>
+                                    <Link
+                                      href={`/capabilities/${slugify(c)}`}
+                                      onClick={() => setIsSheetOpen(false)}
+                                      className="text-gray-700 hover:text-primary transition"
+                                    >
+                                      {c}
+                                    </Link>
+                                  </li>
+                                ))}
+                              </ul>
+                            </details>
+
+                            {/* Industries */}
+                            <details>
+                              <summary className="font-medium text-gray-700 cursor-pointer">
+                                Industries
+                              </summary>
+                              <ul className="mt-2 ml-4 list-disc text-sm space-y-1 animate-fadeIn">
+                                {navigationData.industries.map((i, x) => (
+                                  <li key={x}>
+                                    <Link
+                                      href={`/industries/${slugify(i)}`}
+                                      onClick={() => setIsSheetOpen(false)}
+                                      className="text-gray-700 hover:text-primary transition"
+                                    >
+                                      {i}
+                                    </Link>
+                                  </li>
+                                ))}
+                              </ul>
+                            </details>
+
+                          </div>
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
+
+                    {/* Normal Links */}
+
+
+                    <Link
+                      href="/services"
+                      onClick={() => setIsSheetOpen(false)}
+                      className="block text-gray-700 hover:text-primary animate-stagger"
+                    >
+                      Services
+                    </Link>
+
+                    <Link
+                      href="/about"
+                      onClick={() => setIsSheetOpen(false)}
+                      className="block text-gray-700 hover:text-primary animate-stagger"
+                    >
                       About
                     </Link>
-                    <Link href="/projects" className={isActive("/projects") ? "block font-semibold text-gray-900" : "block text-gray-700 hover:text-gray-900"} aria-current={isActive("/projects") ? "page" : undefined}>
+                    <Link
+                      href="/projects"
+                      onClick={() => setIsSheetOpen(false)}
+                      className="block text-gray-700 hover:text-primary animate-stagger"
+                    >
                       Projects
                     </Link>
-                    <Link href="/career" className={isActive("/career") ? "block font-semibold text-gray-900" : "block text-gray-700 hover:text-gray-900"} aria-current={isActive("/career") ? "page" : undefined}>
+
+                    <Link
+                      href="/career"
+                      onClick={() => setIsSheetOpen(false)}
+                      className="block text-gray-700 hover:text-primary animate-stagger"
+                    >
                       Careers
                     </Link>
 
-                    <div className="pt-4">
-                      <Button className="w-full">Enquire Now</Button>
+                    <div className="pt-4 animate-stagger-delayed">
+                      <Button onClick={() => router.push("/enquiry-form")} className="w-full">Enquire Now</Button>
                     </div>
                   </nav>
                 </SheetContent>
+
               </Sheet>
             </div>
           </div>
@@ -201,7 +240,7 @@ export default function Navbar() {
                       <ul className="grid grid-cols-2 gap-y-2 text-sm"> {/* Changed from grid-cols-2 to grid-cols-1 */}
                         {navigationData.capabilities.map((c) => (
                           <li key={c}>
-                            <Link href={`/services/${slugify(c)}`} className="hover:underline text-gray-700 hover:text-gray-900">
+                            <Link href={`/capabilities/${slugify(c)}`} className="hover:underline text-gray-700 hover:text-gray-900">
                               {c}
                             </Link>
                           </li>
@@ -226,6 +265,7 @@ export default function Navbar() {
               )}
             </div>
 
+            <Link href="/services" className={isActive("/services") ? "font-semibold text-primary" : "text-md text-gray-700 hover:text-gray-900"}>Services</Link>
             <Link href="/about" className={isActive("/about") ? "font-semibold text-primary" : "text-md text-gray-700 hover:text-gray-900"}>About</Link>
             <Link href="/projects" className={isActive("/projects") ? "font-semibold text-primary" : "text-md text-gray-700 hover:text-gray-900"}>Projects</Link>
             <Link href="/career" className={isActive("/career") ? "font-semibold text-primary" : "text-md text-gray-700 hover:text-gray-900"}>Careers</Link>
@@ -233,7 +273,7 @@ export default function Navbar() {
 
           {/* CTA on right */}
           <div className="hidden md:flex items-center">
-            <Button className="text-white">Enquire Now</Button>
+            <Button onClick={() => router.push("/enquiry-form")} className="text-white">Enquire Now</Button>
           </div>
         </div>
       </div >

@@ -8,39 +8,84 @@ export default function ServiceCarousel() {
     const slides = [
         {
             pill: "Services",
-            title: "Web & app Development",
+            title: "Web & App Development",
             description:
-                "At Akdenar Labs, we develop custom mobile and web applications that combine sleek design, robust functionality, and scalability. Our full-stack experts build high-performance Android, iOS, and web solutions with secure integrations, smooth user experiences, and efficient backend systems—helping businesses engage users and achieve measurable growth.",
+                "We build fast, scalable, and high-performance web and mobile applications using modern full-stack technologies. From MVPs to enterprise-grade systems, our apps deliver smooth user experiences, secure architectures, and measurable business growth.",
             image: "/home/webTool.svg",
         },
         {
             pill: "Services",
             title: "Cloud & DevOps",
             description:
-                "We automate, scale, and optimize cloud infrastructures on AWS, Azure, and Google Cloud. From CI/CD pipelines to container orchestration (Docker, Kubernetes), our DevOps team ensures faster deployments, higher efficiency, and more reliability.",
-            image: "/home/clouddevops.png",
+                "We automate, scale, and optimize your infrastructure with AWS, Azure, and GCP. Using CI/CD, Docker, Kubernetes, and monitoring systems, we ensure faster deployments, high availability, and efficient cloud operations.",
+            image: "/home/cloudTool.png",
         },
         {
             pill: "Services",
             title: "UI/UX & Branding",
             description:
-                "We design clean, modern, and visually striking digital experiences using deep user research, interactive wireframes, and scalable design systems. Your brand becomes memorable and intuitive.",
-            image: "/services/uiux-stack.png",
+                "We craft clean, modern, and user-centric UI/UX designs backed by user research and scalable design systems. Your product becomes intuitive, visually appealing, and brand-consistent.",
+            image: "/home/uiuxTool.png",
+        },
+        {
+            pill: "Services",
+            title: "AI & Automation",
+            description:
+                "We build intelligent automation workflows and AI-powered solutions using LLMs, NLP, and machine learning. Our systems reduce manual work, improve efficiency, and enable smart data-driven decision-making.",
+            image: "/home/aiTool.png",
+        },
+        {
+            pill: "Services",
+            title: "Digital Marketing & SEO",
+            description:
+                "We grow businesses with data-driven digital marketing, performance campaigns, and advanced SEO. From organic content strategy to paid ads, we help brands boost reach, engagement, and conversions.",
+            image: "/home/seoTool.png",
+        },
+        {
+            pill: "Services",
+            title: "Video Editing & Animation",
+            description:
+                "We produce high-quality videos, motion graphics, and 2D/3D animations that engage audiences and enhance brand communication. From reels to full product videos, we deliver cinematic storytelling.",
+            image: "/home/editing.png",
+        },
+        {
+            pill: "Services",
+            title: "QA & Testing",
+            description:
+                "We ensure flawless product performance with manual, automated, functional, and load testing. Our QA processes guarantee reliability, high usability, and bug-free product releases.",
+            image: "/home/testingTool.png",
+        },
+        {
+            pill: "Services",
+            title: "Graphic Designing",
+            description:
+                "We design visually compelling graphics, branding kits, marketing creatives, social media designs, and promotional visuals that strengthen your brand identity across platforms.",
+            image: "/home/graphicTool.png",
+        },
+        {
+            pill: "Services",
+            title: "Content Writing",
+            description:
+                "We deliver SEO-optimized, research-based content that improves brand communication and boosts search rankings. From blogs to landing pages, we craft content that converts and engages.",
+            image: "/home/contentWritingTool.png",
         },
     ];
 
+
     const [index, setIndex] = useState(0);
 
-    const nextSlide = () =>
-        setIndex((prev) => (prev + 1) % slides.length);
-
-    const prevSlide = () =>
-        setIndex((prev) => (prev - 1 + slides.length) % slides.length);
+    const nextSlide = () => setIndex((prev) => (prev + 1) % slides.length);
+    const prevSlide = () => setIndex((prev) => (prev - 1 + slides.length) % slides.length);
 
     return (
-        <section className="w-full py-10 px-6 md:px-10 lg:px-20">
+        <motion.section
+            className="w-full py-10 px-6 md:px-10 lg:px-20"
+            initial={{ opacity: 0, y: 60 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            viewport={{ once: true, amount: 0.2 }} // 👈 triggers only when visible
+        >
             <div className="bg-white border border-box-border rounded-3xl shadow-sm p-6 md:px-16">
-
                 <div className="relative overflow-hidden">
 
                     <AnimatePresence mode="wait">
@@ -99,6 +144,6 @@ export default function ServiceCarousel() {
 
                 </div>
             </div>
-        </section>
+        </motion.section>
     );
 }

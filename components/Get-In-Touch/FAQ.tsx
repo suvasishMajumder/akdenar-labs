@@ -1,3 +1,7 @@
+"use client";
+
+import { motion } from "framer-motion";
+
 export default function FAQSection() {
   const faqs = [
     {
@@ -19,52 +23,92 @@ export default function FAQSection() {
   ];
 
   return (
-    <section className="bg-bg-primary py-10 px-6 md:px-10 lg:px-24">
-
+    <motion.section
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.7, ease: "easeOut" }}
+      className="bg-bg-primary py-10 px-6 md:px-10 lg:px-24"
+    >
       {/* Badge */}
-      <div className="flex justify-center">
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+        className="flex justify-center"
+      >
         <span className="px-5 py-1 rounded-full bg-[#EDEAFF] text-[#7F56D9] text-sm font-medium">
           FAQs
         </span>
-      </div>
+      </motion.div>
 
       {/* Heading */}
-      <h2 className="text-center text-3xl md:text-5xl mt-4 font-semibold text-gray-900">
+      <motion.h2
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="text-center text-3xl md:text-5xl mt-4 font-semibold text-gray-900"
+      >
         Answers to some of your questions
-      </h2>
+      </motion.h2>
 
       {/* Subheading */}
-      <p className="text-center text-neutral-600 mt-3 max-w-2xl mx-auto">
+      <motion.p
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.3 }}
+        className="text-center text-neutral-600 mt-3 max-w-2xl mx-auto"
+      >
         Don't find the answers you were looking for? Contact us at{" "}
         <span className="text-[#7F56D9] font-medium cursor-pointer">
           akdenarlabs@gmail.com
         </span>
-      </p>
+      </motion.p>
 
       {/* FAQ Grid */}
-      <div className="mt-12 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={{
+          hidden: {},
+          visible: {
+            transition: { staggerChildren: 0.15 },
+          },
+        }}
+        className="mt-12 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6"
+      >
         {faqs.map((item, i) => (
-          <div
+          <motion.div
             key={i}
-            className="bg-white border border-gray-200 rounded-xl shadow-sm p-6"
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+            }}
+            whileHover={{ y: -5, boxShadow: "0 12px 30px rgba(127,86,217,0.12)" }}
+            transition={{ type: "spring", stiffness: 180, damping: 14 }}
+            className="bg-white border border-gray-200 rounded-xl shadow-sm p-6 cursor-pointer hover:border-[#D8CBFF] transition"
           >
-            <h3 className="text-[#7F56D9] font-semibold mb-3">
-              {item.q}
-            </h3>
+            <h3 className="text-[#7F56D9] font-semibold mb-3">{item.q}</h3>
             <hr className="my-3 border-gray-200" />
             <p className="text-gray-700 text-sm leading-relaxed">
               {item.a}
             </p>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
       {/* View All */}
-      <div className="flex justify-center mt-10">
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.4 }}
+        className="flex justify-center mt-10"
+      >
         <button className="flex items-center gap-2 text-[#7F56D9] text-sm font-medium hover:opacity-80">
           View All <span>⌄</span>
         </button>
-      </div>
-    </section>
+      </motion.div>
+    </motion.section>
   );
 }
